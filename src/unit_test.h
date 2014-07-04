@@ -41,7 +41,7 @@ public:
 	/* Public data members for setting the colors which are printed by the
 	test. */
 	ansi::color::color_code normal, success, failure;
-	bool color_enabled;
+	bool color_enabled, quiet_mode;
 
 	/* Default constructor. */
 	unit_test() :
@@ -49,6 +49,7 @@ public:
 		success(ansi::color::green),
 		failure(ansi::color::red),
 		color_enabled(true),
+		quiet_mode(false),
 		_successes(0), _total(0) {}
 
 	/* Run the unit test. The title of the unit test is passed as a
@@ -59,47 +60,56 @@ public:
 		for(char **str = argv, **end = argv + argc; str != end; ++str) {
 			if(strcmp(*str, "-n") == 0 || strcmp(*str, "--no-color") == 0) {
 				color_enabled = false;
+			}
+			else if(strcmp(*str, "-s") == 0 || strcmp(*str, "--silent") == 0) {
+				quiet_mode = true;
+			}
+			else if(strcmp(*str, "--") == 0) {
 				break;
 			}
 		}
 
 		_successes = _total = 0;
-		make_color(normal);
-		std::cout << "==== " << title << " ====";
-		make_color(ansi::color::clear);
-		std::cout << std::endl
-			<< std::endl;
+		if(!quiet_mode) {
+			make_color(normal);
+			std::cout << "==== " << title << " ====";
+			make_color(ansi::color::clear);
+			std::cout << std::endl
+				<< std::endl;
+		}
 
 		run_tests();
 
-		make_color(normal);
-		std::cout << "==== TEST COMPLETE ====";
-		make_color(ansi::color::clear);
-		std::cout << std::endl
-			<< std::endl
-			<< "Total tests: " << _total << std::endl;
-		if(failures()) make_color(failure);
-		std::cout << "Failures:    " << failures();
-		make_color(ansi::color::clear);
-		std::cout << std::endl;
-		if(successes()) make_color(success);
-		std::cout << "Successes:   " << successes();
-		make_color(ansi::color::clear);
-		std::cout << std::endl
-			<< std::endl;
+		if(!quiet_mode) {
+			make_color(normal);
+			std::cout << "==== TEST COMPLETE ====";
+			make_color(ansi::color::clear);
+			std::cout << std::endl
+				<< std::endl
+				<< "Total tests: " << _total << std::endl;
+			if(failures()) make_color(failure);
+			std::cout << "Failures:    " << failures();
+			make_color(ansi::color::clear);
+			std::cout << std::endl;
+			if(successes()) make_color(success);
+			std::cout << "Successes:   " << successes();
+			make_color(ansi::color::clear);
+			std::cout << std::endl
+				<< std::endl;
 
-		if(succeeded()) {
-			make_color(success);
-			std::cout << "SUCCESS";
-		}
-		else {
-			make_color(failure);
-			std::cout << "FAILURE";
-		}
+			if(succeeded()) {
+				make_color(success);
+				std::cout << "SUCCESS";
+			}
+			else {
+				make_color(failure);
+				std::cout << "FAILURE";
+			}
 
-		make_color(ansi::color::clear);
-		std::cout << std::endl
-			<< std::endl;
+			make_color(ansi::color::clear);
+			std::cout << std::endl
+				<< std::endl;
+		}
 
 		return !succeeded();
 
@@ -134,7 +144,9 @@ protected:
 	)
 	{
 		begin_test(name);
-		std::cout << expr << " is true" << std::endl;
+		if(!quiet_mode) {
+			std::cout << expr << " is true" << std::endl;
+		}
 		if(actual) pass();
 		else fail(filename, line);
 	}
@@ -150,7 +162,9 @@ protected:
 	)
 	{
 		begin_test(name);
-		std::cout << expr << " == " << expected << std::endl;
+		if(!quiet_mode) {
+			std::cout << expr << " == " << expected << std::endl;
+		}
 		if(actual == expected) pass();
 		else fail(filename, line);
 	}
@@ -161,32 +175,40 @@ private:
 
 	void begin_test(const std::string &name) {
 		++_total;
-		make_color(normal);
-		std::cout << "== TEST #" << _total << ": " << name << " ==";
-		make_color(ansi::color::clear);
-		std::cout << std::endl;
+		if(!quiet_mode) {
+			make_color(normal);
+			std::cout << "== TEST #" << _total << ": " << name << " ==";
+			make_color(ansi::color::clear);
+			std::cout << std::endl;
+		}
 	}
 
 	void pass() {
-		make_color(success);
-		std::cout << "PASSED";
-		make_color(ansi::color::clear);
-		std::cout << std::endl
-			<< std::endl;
+		if(!quiet_mode) {
+			make_color(success);
+			std::cout << "PASSED";
+			make_color(ansi::color::clear);
+			std::cout << std::endl
+				<< std::endl;
+		}
 		++_successes;
 	}
 
 	void fail(const char *filename, unsigned int line) const {
-		make_color(failure);
-		std::cout << "FAILED in " << filename << " at line " << line;
-		make_color(ansi::color::clear);
-		std::cout << std::endl
-			<< std::endl;
+		if(!quiet_mode) {
+			make_color(failure);
+			std::cout << "FAILED in " << filename << " at line " << line;
+			make_color(ansi::color::clear);
+			std::cout << std::endl
+				<< std::endl;
+		}
 	}
 
 	template <typename T>
 	inline void make_color(const T &c) const {
-		if(color_enabled) std::cout << c;
+		if(color_enabled && !quiet_mode) {
+			std::cout << c;
+		}
 	}
 
 };

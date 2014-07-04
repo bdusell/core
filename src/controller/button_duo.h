@@ -3,6 +3,8 @@
 
 namespace controller {
 
+/* A virtual button with two switches. The value of the button is either 1, 0,
+or -1 depending on which switches are set true. */
 class button_duo {
 
 public:

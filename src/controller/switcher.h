@@ -7,6 +7,7 @@
 
 namespace controller {
 
+/* A value which switches between two values based on a boolean switch. */
 template <typename Bool, typename T>
 class switcher {
 

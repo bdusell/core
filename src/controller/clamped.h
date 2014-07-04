@@ -8,6 +8,7 @@
 
 namespace controller {
 
+/* A value which remains clamped to a given range. */
 template <typename T>
 class clamped {
 

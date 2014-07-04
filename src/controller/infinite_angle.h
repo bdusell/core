@@ -8,8 +8,6 @@
 
 namespace controller {
 
-///* Types *///
-
 /* A value which increments periodically over a fixed range so as to avoid
 overflow. */
 template <typename T>

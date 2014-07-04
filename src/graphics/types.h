@@ -8,7 +8,7 @@ Types for graphics.
 #include <GL/gl.h>
 #include "math/cartesian/point.h"
 #include "math/cartesian/vector.h"
-#include "graphics/color/color.h"
+//#include "graphics/color/color.h"
 
 namespace graphics {
 

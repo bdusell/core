@@ -60,12 +60,12 @@ run-test() {
 
 NUM_PASS=0
 NUM_TOTAL=0
-FILES=($(find ../src -type f -name '*.h' | sed -r 's!^../src/(.*)\.h$!\1!'))
+FILES=($(find src -type f -name '*.h' | sed -r 's!^src/(.*)\.h$!\1!'))
 for NAME in "${FILES[@]}"; do
     ((++NUM_TOTAL))
-    if [[ -e "$NAME.cpp" ]]; then
-        if run-make "$NAME.test"; then
-            if run-test "$NAME.test"; then
+    if [[ -e "test/$NAME.cpp" ]]; then
+        if run-make "test/$NAME.test"; then
+            if run-test "test/$NAME.test"; then
                 $ONLY_FAILURES || green "test for $NAME.h passed"
                 ((++NUM_PASS))
             else

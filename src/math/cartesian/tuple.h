@@ -9,7 +9,7 @@ Cartesian xyz coordinate system.
 #ifndef MATH_CARTESIAN_TUPLE_H
 #define MATH_CARTESIAN_TUPLE_H
 
-#include "meta/array_tuple.h"
+//#include "meta/array_tuple.h"
 
 namespace math {
 namespace cartesian {

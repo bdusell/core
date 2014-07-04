@@ -9,9 +9,9 @@ Shape drawing utilities.
 #define GRAPHICS_HW01_SHAPES_H
 
 #include "math.h"
-#include "types.h"
-#include "point.h"
-#include "drawing.h"
+//#include "types.h"
+//#include "point.h"
+//#include "drawing.h"
 
 namespace graphics {
 namespace hw01 {

@@ -5,7 +5,7 @@ Author: Brian DuSell
 More shape drawing utilities.
 */
 
-#include "graphics/hw01/types.h"
+//#include "graphics/hw01/types.h"
 
 namespace graphics {
 namespace hw03 {

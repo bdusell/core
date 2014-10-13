@@ -1,17 +1,25 @@
 #!/bin/bash
 
 usage() {
-    echo "$(basename "$0") [options]
+    echo "$(basename "$0") [options] [header-files ...]
     --help              Display this help message.
     --no-test-output    Suppress output from individual unit tests.
     --no-make-output    Suppress Makefile output.
     --only-failures     Display only failures.
+    --first-failure     Stop after the first failure.
+    --ignore-missing    Ignore missing tests.
+    --markers           Include markers in the output which are useful for
+                        parsers.
     --terse             Activate all output suppression flags."
 }
 
 NO_TEST_OUTPUT=false
 NO_MAKE_OUTPUT=false
 ONLY_FAILURES=false
+FIRST_FAILURE=false
+MARKERS=false
+IGNORE_MISSING=false
+TEST_NAMES=()
 while [[ $# -gt 0 ]]; do
 case "$1" in
 --help|-h|help) usage; exit 0 ;;
@@ -19,11 +27,16 @@ case "$1" in
 --no-make-output) NO_MAKE_OUTPUT=true ;;
 --only-failures) ONLY_FAILURES=true ;;
 --terse) NO_TEST_OUTPUT=true; NO_MAKE_OUTPUT=true; ONLY_FAILURES=true ;;
+--first-failure) FIRST_FAILURE=true ;;
+--markers) MARKERS=true ;;
+--ignore-missing) IGNORE_MISSING=true ;;
 --) shift; break ;;
-*) usage; exit 1 ;;
+*) TEST_NAMES+=($(find "$1" -name '*.h')) ;;
 esac
 shift
 done
+
+TEST_NAMES+=("$@")
 
 color() {
     local VAL=$1; shift
@@ -58,37 +71,67 @@ run-test() {
     fi
 }
 
+mark() {
+    if $MARKERS; then
+        local TAG=$1
+        shift
+        if [[ $# -gt 0 ]]; then
+            echo "!$TAG:" "$@"
+        else
+            echo "!$TAG"
+        fi
+    fi
+}
+
+if [[ ${#TEST_NAMES[@]} -eq 0 ]]; then
+    TEST_NAMES=($(find src -type f -name '*.h'))
+fi
+
 NUM_PASS=0
 NUM_TOTAL=0
-FILES=($(find src -type f -name '*.h' | sed -r 's!^src/(.*)\.h$!\1!'))
-for NAME in "${FILES[@]}"; do
+for FILENAME in "${TEST_NAMES[@]}"; do
+    NAME=$(echo -n "$FILENAME" | sed -r 's!^src/(.*)\.h$!\1!')
+    mark 'start' "$NAME"
     ((++NUM_TOTAL))
     if [[ -e "test/$NAME.cpp" ]]; then
+        mark 'exists' "test/$NAME.cpp"
         if run-make "test/$NAME.test"; then
+            mark 'compiles' "test/$NAME.cpp"
+            mark 'unit-test-start'
             if run-test "test/$NAME.test"; then
-                $ONLY_FAILURES || green "test for $NAME.h passed"
+                mark 'return-code' $? 'pass'
+                $ONLY_FAILURES || green "test for $NAME passed"
                 ((++NUM_PASS))
             else
-                red "test for $NAME.h failed"
+                mark 'return-code' $? 'fail'
+                red "test for $NAME failed"
             fi
         else
+            mark 'compilation-failed' "test/$NAME.cpp"
             red "error: compilation of $NAME.cpp failed"
         fi
-    else
-        red "error: no test for $NAME.h"
+    elif ! $IGNORE_MISSING
+        mark 'missing'
+        red "error: no test for $NAME"
+    fi
+    mark 'end'
+    if $FIRST_FAILURE && ((NUM_PASS < NUM_TOTAL)); then
+        break
     fi
 done
 
 NUM_FAIL=$((NUM_TOTAL - NUM_PASS))
 
-echo
-cyan '==== TEST SUITE COMPLETE ===='
-echo
-echo   "Total tests: $NUM_TOTAL"
-[[ $NUM_FAIL -gt 0 ]] && COLOR=red || COLOR=echo
-$COLOR "Failures:    $NUM_FAIL"
-[[ $NUM_PASS -gt 0 ]] && COLOR=green || COLOR=echo
-$COLOR "Successes:   $NUM_PASS"
+if ! $FIRST_FAILURE && ((NUM_FAIL > 0)); then
+    echo
+    cyan '==== TEST SUITE COMPLETE ===='
+    echo
+    echo   "Total tests: $NUM_TOTAL"
+    ((NUM_FAIL > 0)) && COLOR=red || COLOR=echo
+    $COLOR "Failures:    $NUM_FAIL"
+    ((NUM_PASS > 0)) && COLOR=green || COLOR=echo
+    $COLOR "Successes:   $NUM_PASS"
+fi
 
-[[ $NUM_FAIL -eq 0 ]]
+((NUM_FAIL == 0))
 

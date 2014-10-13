@@ -17,7 +17,8 @@ TESTBIN=$(TESTSRC:.cpp=.test)
 
 ALLSRC=$(SRC) $(TESTSRC)
 
-INC=-Isrc
+INC=-Isrc -Itest/lib
+LIBCLANG_PATH=/usr/lib/llvm-3.4/lib
 
 LINK=$(CXX) $(CXXFLAGS) -o $@ $^
 COMPILE=$(CXX) $(CXXFLAGS) $(INC) -o $@ -c $<
@@ -35,7 +36,7 @@ test: $(TESTBIN)
 	$(COMPILE)
 
 doc: $(SRC) $(HDR)
-	LD_LIBRARY_PATH=/usr/lib/llvm-3.4/lib cldoc generate -- --report --merge docs --output doc $^
+	LD_LIBRARY_PATH=$(LIBCLANG_PATH) cldoc generate -- --report --merge docs --output doc $^
 
 viewdocs:
 	cldoc serve doc

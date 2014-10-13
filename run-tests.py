@@ -43,14 +43,20 @@ def green(s):
 def normal(s):
     return s
 
+def files_from_path(path):
+    if os.path.isdir(path):
+        return os.walk(path)
+    else:
+        path, basename = os.path.split(path)
+        return [(path, [], [basename])]
+
 def find_files(target_paths, extension):
-    return (
-        os.path.join(path, name)
-        for target_path in target_paths
-        for (path, dirnames, filenames) in os.walk(target_path)
-        for name in filenames
-        if name.endswith('.' + extension)
-    )
+    suffix = '.' + extension
+    for target_path in target_paths:
+        for (path, dirnames, filenames) in files_from_path(target_path):
+            for name in filenames:
+                if name.endswith(suffix):
+                    yield os.path.join(path, name)
 
 test_name_pat = re.compile(r'^src/(.*?)(?:\.(?:h|cpp))?$')
 
@@ -75,7 +81,7 @@ def run_test(filename, suppress):
 
 def main():
 
-    args = list(reversed(sys.argv[1:]))
+    args = sys.argv[:0:-1]
 
     no_test_output = False
     no_make_output = False

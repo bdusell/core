@@ -1,20 +1,15 @@
-/*
-unittest.h
-A simple unit testing framework for C++.
-*/
-
-#ifndef UNIT_TEST_UNIT_TEST_H
-#define UNIT_TEST_UNIT_TEST_H
+#ifndef _UNIT_TEST_H_
+#define _UNIT_TEST_H_
 
 #include <iostream>
 #include <cstring>
-#include "ansi/color.h"
+#include "terminal/color.h"
 
-/* Macro functions which allow expressions' source code to be captured along
-with their results. */
+/* Assert that an expression is true. */
 #define UNIT_TEST_TRUE( expr , name ) \
 	test_true( #expr , expr , name , __FILE__ , __LINE__ )
 
+/* Assert that two expressions are equal according to `==`. */
 #define UNIT_TEST_EQUAL( expr , expected , name ) \
 	test_equal( #expr , expr , expected , name , __FILE__ , __LINE__ )
 
@@ -23,6 +18,9 @@ int main(int argc, char **argv) { \
 	name().run(__FILE__, argc, argv); \
 }
 
+/* Shorthand for defining a unit test program. Simply define the unit test body
+ * in a code block following this macro, and it will define the unit test class
+ * and main function for you. */
 #define UNIT_TEST( name ) \
 class name ## _test : public unit_test { \
 protected: \
@@ -31,17 +29,27 @@ protected: \
 UNIT_TEST_PROGRAM(name ## _test) \
 void name ## _test::run_tests()
 
-/* A base class for writing unit test classes. The protected run_tests function
-should be overridden to perform a series of test cases conducted with the
-helper functions and macros provided by this framework. */
+/* A base class for writing unit test classes. The protected `run_tests`
+ * function should be overridden to perform a series of assertions made
+ * with the helper functions and macros provided. */
 class unit_test {
 
 public:
 
-	/* Public data members for setting the colors which are printed by the
-	test. */
-	ansi::color::color_code normal, success, failure;
-	bool color_enabled, quiet_mode;
+	/* The terminal color used for printing normal output. */
+	ansi::color::color_code normal;
+
+	/* The terminal color used for indicating success. */
+	ansi::color::color_code success;
+
+	/* The terminal color used for indicating failure. */
+	ansi::color::color_code failure;
+
+	/* Whether colored terminal output is enabled. */
+	bool color_enabled;
+
+	/* Whether quiet mode is enabled. */
+	bool quiet_mode;
 
 	/* Default constructor. */
 	unit_test() :
@@ -52,8 +60,11 @@ public:
 		quiet_mode(false),
 		_successes(0), _total(0) {}
 
-	/* Run the unit test. The title of the unit test is passed as a
-	parameter. */
+	/* Run the unit test.
+	 * @param title The name of the unit test.
+	 * @param argc The number of arguments.
+	 * @param argv The array of arguments.
+	 * */
 	int run(const char *title, int argc, char **argv) {
 
 		color_enabled = true;
@@ -115,18 +126,22 @@ public:
 
 	}
 
+	/* @return the number of successful assertions. */
 	inline unsigned int successes() const {
 		return _successes;
 	}
 
+	/* @return the number of failed assertions. */
 	inline unsigned int failures() const {
 		return _total - _successes;
 	}
 
+	/* @return the total number of assertions run. */
 	inline unsigned int total() const {
 		return _total;
 	}
 
+	/* @return whether the unit test succeeded.  */
 	inline bool succeeded() const {
 		return _successes == _total;
 	}
@@ -210,7 +225,6 @@ private:
 			std::cout << c;
 		}
 	}
-
 };
 
 #endif

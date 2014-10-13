@@ -1,11 +1,12 @@
-#ifndef CONTROLLER_CLAMPED_H
-#define CONTROLLER_CLAMPED_H
+#ifndef _GAME_CONTROLLER_CLAMPED_H_
+#ifndef _GAME_CONTROLLER_CLAMPED_H_
 
 #include "math/util.h"
 #include "meta/param.h"
 #include "meta/cref.h"
 #include "meta/ref.h"
 
+namespace game {
 namespace controller {
 
 /* A value which remains clamped to a given range. */
@@ -59,6 +60,6 @@ private:
 };
 
 } // namespace controller
+} // namespace game
 
 #endif
-

@@ -1,12 +1,5 @@
-/*
-File: transform.h
-Author: Brian DuSell
-
-Matrix transformation utilities.
-*/
-
-#ifndef GRAPHICS_OPENGL_TRANSFORM_H
-#define GRAPHICS_OPENGL_TRANSFORM_H
+#ifndef _GRAPHICS_OPENGL_TRANSFORM_H_
+#define _GRAPHICS_OPENGL_TRANSFORM_H_
 
 #include <GL/gl.h>
 #include "math/cartesian/tuple.h"
@@ -188,4 +181,3 @@ inline void scale(T x, T y) {
 } // namespace graphics
 
 #endif
-

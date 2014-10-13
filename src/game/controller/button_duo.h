@@ -1,6 +1,7 @@
-#ifndef CONTROLLER_BUTTON_DUO_H
-#define CONTROLLER_BUTTON_DUO_H
+#ifndef _GAME_CONTROLLER_BUTTON_DUO_H_
+#define _GAME_CONTROLLER_BUTTON_DUO_H_
 
+namespace game {
 namespace controller {
 
 /* A virtual button with two switches. The value of the button is either 1, 0,
@@ -24,6 +25,7 @@ private:
 };
 
 } // namespace controller
+} // namespace game
 
 #endif
 

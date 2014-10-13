@@ -1,12 +1,5 @@
-/*
-File: alphabet.h
-Author: Brian DuSell
-
-Draw letters of the Latin alphabet using 2-D GL primitives.
-*/
-
-#ifndef GRAPHICS_SHAPES_ALPHABET_H
-#define GRAPHICS_SHAPES_ALPHABET_H
+#ifndef _GRAPHICS_SHAPES_ALPHABET_H_
+#define _GRAPHICS_SHAPES_ALPHABET_H_
 
 #include "graphics/types.h"
 
@@ -57,4 +50,3 @@ void drawZ(Float W, Float H, Float t);
 } // namespace graphics
 
 #endif
-

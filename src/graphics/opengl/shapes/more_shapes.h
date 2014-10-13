@@ -1,17 +1,10 @@
-/*
-File: more_shapes.h
-Author: Brian DuSell
+#ifndef _GRAPHICS_SHAPES_MORE_SHAPES_H_
+#define _GRAPHICS_SHAPES_MORE_SHAPES_H_
 
-More shape drawing utilities.
-*/
-
-//#include "graphics/hw01/types.h"
+#include "graphics/opengl/types.h"
 
 namespace graphics {
-namespace hw03 {
-
-using namespace graphics::hw01;
-//using namespace graphics::hw02;
+namespace more_shapes {
 
 /* Draws a grid in the xy plane using line primitives. Draws a certain number
 of cells along each axis, where each cell is square and is one unit in side
@@ -24,6 +17,7 @@ spaced 1 unit apart. The number of spaces to draw and the width of the strip of
 line segments are given. */
 void draw_grid_lines(uint spaces, Float width);
 
-} // namespace hw03
+} // namespace more_shapes
 } // namespace graphics
 
+#endif

@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_GLUT_APP_H
-#define GRAPHICS_GLUT_APP_H
+#ifndef _GRAPHICS_GLUT_APP_H_
+#define _GRAPHICS_GLUT_APP_H_
 
 #include <GL/glut.h>
 #include "graphics/types.h"
@@ -340,4 +340,3 @@ private:
 } // namespace graphics
 
 #endif
-

@@ -1,11 +1,12 @@
-#ifndef CONTROLLER_INFINITE_ANGLE_H
-#define CONTROLLER_INFINITE_ANGLE_H
+#ifndef _GAME_CONTROLLER_INFINITE_ANGLE_H_
+#define _GAME_CONTROLLER_INFINITE_ANGLE_H_
 
 #include "math/util.h"
 #include "meta/param.h"
 #include "meta/ref.h"
 #include "meta/cref.h"
 
+namespace game {
 namespace controller {
 
 /* A value which increments periodically over a fixed range so as to avoid
@@ -100,6 +101,6 @@ public:
 };
 
 } // namespace controller
+} // namespace game
 
 #endif
-

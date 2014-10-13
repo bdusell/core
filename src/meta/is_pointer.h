@@ -3,6 +3,7 @@
 
 namespace meta {
 
+/* A meta-value which tells whether `T` is a pointer type. */
 template <typename T>
 struct is_pointer {
 	static const bool value = false;

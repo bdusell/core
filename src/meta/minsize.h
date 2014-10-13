@@ -5,6 +5,8 @@
 
 namespace meta {
 
+/* A meta-type which produces `const T &` if `T` is larger than a reference
+ * to itself, and otherwise `T`. */
 template <typename T>
 struct minsize;
 

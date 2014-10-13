@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_OPENGL_DISPLAY_LIST_H
-#define GRAPHICS_OPENGL_DISPLAY_LIST_H
+#ifndef _GRAPHICS_OPENGL_DISPLAY_LIST_H_
+#define _GRAPHICS_OPENGL_DISPLAY_LIST_H_
 
 #include <GL/gl.h>
 
@@ -80,4 +80,3 @@ display_list_capture::~display_list_capture() {
 } // namespace graphics
 
 #endif
-

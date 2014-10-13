@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_OPENGL_COLOR_H
-#define GRAPHICS_OPENGL_COLOR_H
+#ifndef _GRAPHICS_OPENGL_COLOR_H_
+#define _GRAPHICS_OPENGL_COLOR_H_
 
 #include <GL/gl.h>
 #include "graphics/color/rgb.h"
@@ -153,4 +153,3 @@ void set_background(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
 } // namespace graphics
 
 #endif
-

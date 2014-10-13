@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_GLUT_MOUSE_H
-#define GRAPHICS_GLUT_MOUSE_H
+#ifndef _GRAPHICS_GLUT_MOUSE_H_
+#define _GRAPHICS_GLUT_MOUSE_H_
 
 #include "graphics/types.h"
 #include "graphics/glut/app.h"
@@ -48,4 +48,3 @@ private:
 } // namespace graphics
 
 #endif
-

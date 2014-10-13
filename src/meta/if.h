@@ -3,6 +3,7 @@
 
 namespace meta {
 
+/* A meta-type which produces `A` if `Cond` is true and `B` otherwise. */
 template <bool Cond, typename A, typename B>
 struct if_;
 

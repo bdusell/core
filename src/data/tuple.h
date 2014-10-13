@@ -1,5 +1,5 @@
-#ifndef DATASTRUCT_TUPLE_H
-#define DATASTRUCT_TUPLE_H
+#ifndef _DATA_TUPLE_H_
+#define _DATA_TUPLE_H_
 
 #include "meta/param.h"
 #include "meta/ref.h"
@@ -7,8 +7,9 @@
 #include "meta/int.h"
 #include "meta/choose.h"
 
-namespace datastruct {
+namespace data {
 
+/* A tuple with elements of heterogeneous type. */
 template <typename T0, typename T1, typename T2 = void, typename T3 = void>
 class tuple;
 
@@ -216,7 +217,6 @@ private:
 };
 */
 
-} // namespace datastruct
+} // namespace data
 
 #endif
-

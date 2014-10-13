@@ -1,20 +1,13 @@
-/*
-File: shapes.h
-Author: Brian DuSell
+#ifndef _GRAPHICS_SHAPES_SHAPES_H_
+#define _GRAPHICS_SHAPES_SHAPES_H_
 
-Shape drawing utilities.
-*/
-
-#ifndef GRAPHICS_HW01_SHAPES_H
-#define GRAPHICS_HW01_SHAPES_H
-
-#include "math.h"
-//#include "types.h"
-//#include "point.h"
-//#include "drawing.h"
+#include "graphics/types.h"
+#include "graphics/opengl/drawing.h"
+#include "math/util.h"
+#include "math/cartesian/point.h"
 
 namespace graphics {
-namespace hw01 {
+namespace shapes {
 
 ///* Functions *///
 
@@ -240,8 +233,7 @@ T rect<T>::yrange() const {
 	return p2.y() - p1.y();
 }
 
-} // namespace hw01
+} // namespace shapes
 } // namespace graphics
 
 #endif
-

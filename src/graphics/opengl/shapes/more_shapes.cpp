@@ -1,6 +1,6 @@
 #include "more_shapes.h"
-//#include "graphics/hw01/drawing.h"
-//#include "graphics/hw01/transform.h"
+#include "graphics/opengl/drawing.h"
+#include "graphics/opengl/transform.h"
 
 void graphics::hw03::draw_grid(uint x_cells, uint y_cells) {
 	draw_grid_lines(y_cells, x_cells);

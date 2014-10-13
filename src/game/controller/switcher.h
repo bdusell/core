@@ -1,10 +1,11 @@
-#ifndef CONTROLLER_SWITCHER_H
-#define CONTROLLER_SWITCHER_H
+#ifndef _GAME_CONTROLLER_SWITCHER_H_
+#define _GAME_CONTROLLER_SWITCHER_H_
 
 #include "meta/param.h"
 #include "meta/ref.h"
 #include "meta/cref.h"
 
+namespace game {
 namespace controller {
 
 /* A value which switches between two values based on a boolean switch. */
@@ -43,6 +44,6 @@ private:
 };
 
 } // namespace controller
+} // namespace game
 
 #endif
-

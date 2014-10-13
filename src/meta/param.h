@@ -5,6 +5,9 @@
 
 namespace meta {
 
+/* A meta-type which produces a type appropriate for being used as an immutable
+ * function parameter. This is generally the same as `cref<T>` except that
+ * non-const references are left non-const. */
 template <typename T>
 struct param;
 

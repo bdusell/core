@@ -1,12 +1,7 @@
-/*
-File: alphabet.cpp
-Author: Brian DuSell
-*/
-
 #include "graphics/shapes/alphabet.h"
 #include <cmath>
 #include <cstring>
-//#include "math/math.h"
+#include "math/util.h"
 #include "graphics/opengl/transform.h"
 #include "graphics/opengl/drawing.h"
 #include "graphics/shapes/shapes.h"

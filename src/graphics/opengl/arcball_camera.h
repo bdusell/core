@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_HW03_ARCBALL_CAMERA_H
-#define GRAPHICS_HW03_ARCBALL_CAMERA_H
+#ifndef _GRAPHICS_OPENGL_ARCBALL_CAMERA_H_
+#define _GRAPHICS_OPENGL_ARCBALL_CAMERA_H_
 
 // TODO
 
@@ -10,7 +10,7 @@
 #include "spherical.h"
 
 namespace graphics {
-namespace hw03 {
+namespace opengl {
 
 using namespace graphics::hw01;
 using namespace graphics::hw02;
@@ -83,8 +83,7 @@ private:
 
 };
 
-} // namespace hw03
+} // namespace opengl
 } // namespace graphics
 
 #endif
-

@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_GLUT_KEYBOARD_H
-#define GRAPHICS_GLUT_KEYBOARD_H
+#ifndef _GRAPHICS_GLUT_KEYBOARD_H_
+#define _GRAPHICS_GLUT_KEYBOARD_H_
 
 #include <map>
 
@@ -43,4 +43,3 @@ typedef keyboard_reader<ascii_key> ascii_keyboard_reader;
 } // namespace graphics
 
 #endif
-

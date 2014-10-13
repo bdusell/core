@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_SHAPES_RANDOM_H
-#define GRAPHICS_SHAPES_RANDOM_H
+#ifndef _GRAPHICS_SHAPES_RANDOM_H_
+#define _GRAPHICS_SHAPES_RANDOM_H_
 
 #include "math/random.h"
 
@@ -21,4 +21,3 @@ typename math::cartesian::rectangle<T>::point_type rand_coord(const math::cartes
 } // namespace graphics
 
 #endif
-

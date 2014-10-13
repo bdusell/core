@@ -1,7 +1,8 @@
-#ifndef GRAPHICS_SHAPES_RECTANGLE_H
-#define GRAPHICS_SHAPES_RECTANGLE_H
+#ifndef _GRAPHICS_SHAPES_RECTANGLE_H_
+#define _GRAPHICS_SHAPES_RECTANGLE_H_
 
 #include "math/math.h"
 
-#endif
+// TODO
 
+#endif

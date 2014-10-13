@@ -6,12 +6,12 @@
 #include <iostream>
 
 namespace ansi {
-
 namespace color {
+
 enum color_code { black, red, green, yellow, blue, magenta, cyan, white };
 enum clear_code { clear = white + 1 };
-}
 
+} // namespace color
 } // namespace ansi
 
 inline std::ostream &operator<<(std::ostream &output, ansi::color::color_code c) {

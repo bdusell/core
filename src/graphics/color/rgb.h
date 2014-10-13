@@ -1,12 +1,5 @@
-/*
-File: color.h
-Author: Brian DuSell
-
-Utilities for managing color.
-*/
-
-#ifndef GRAPHICS_COLOR_RGB_H
-#define GRAPHICS_COLOR_RGB_H
+#ifndef _GRAPHICS_COLOR_RGB_H_
+#define _GRAPHICS_COLOR_RGB_H_
 
 #include "meta/param.h"
 #include "meta/ref.h"
@@ -84,4 +77,3 @@ rgb<T, N> rgb<T, N>::operator*(T c) const {
 } // namespace graphics
 
 #endif
-

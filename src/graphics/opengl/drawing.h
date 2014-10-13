@@ -1,12 +1,5 @@
-/*
-File: drawing.h
-Author: Brian DuSell
-
-GL drawing utilities.
-*/
-
-#ifndef GRAPHICS_OPENGL_DRAWING_H
-#define GRAPHICS_OPENGL_DRAWING_H
+#ifndef _GRAPHICS_OPENGL_DRAWING_H_
+#define _GRAPHICS_OPENGL_DRAWING_H_
 
 #include <GL/gl.h>
 #include "meta/param.h"

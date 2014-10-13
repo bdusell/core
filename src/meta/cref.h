@@ -7,6 +7,9 @@
 
 namespace meta {
 
+/* A meta-type which produces a type with the semantics of a const reference,
+ * falling back to the more efficient pass-by-value when the actual value
+ * would be smaller than a reference to it. */
 template <typename T>
 struct cref;
 

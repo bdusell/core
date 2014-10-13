@@ -1,12 +1,5 @@
-/*
-File: operators.h
-Author: Brian DuSell
-
-Functors for the C++ operators.
-*/
-
-#ifndef FUNCTIONAL_OPERATORS_H
-#define FUNCTIONAL_OPERATORS_H
+#ifndef _FUNCTIONAL_OPERATORS_H_
+#define _FUNCTIONAL_OPERATORS_H_
 
 namespace functional {
 
@@ -34,17 +27,23 @@ struct NAME { \
 	} \
 };
 
+/* Functors corresponding to the binary arithmetic operators `+`, `-`, `*`,
+ * and `/`. */
 _DEFINE_ARITHMETIC_OP(add, +)
 _DEFINE_ARITHMETIC_OP(subtract, -)
 _DEFINE_ARITHMETIC_OP(multiply, *)
 _DEFINE_ARITHMETIC_OP(divide, /)
 
+/* Functors corresponding to the assignment operators `=`, `+=`, `-=`, `*=`,
+ * and `/=`. */
 _DEFINE_ASSIGN_OP(assign, =)
 _DEFINE_ASSIGN_OP(add_assign, +=)
 _DEFINE_ASSIGN_OP(subtract_assign, -=)
 _DEFINE_ASSIGN_OP(multiply_assign, *=)
 _DEFINE_ASSIGN_OP(divide_assign, /=)
 
+/* Functors corresponding to the binary comparison operators `==`, `!=`, `<`,
+ * `<=`, `>`, and `>=`. */
 _DEFINE_COMP_OP(equals, ==);
 _DEFINE_COMP_OP(not_equals, !=);
 _DEFINE_COMP_OP(less, <);
@@ -58,4 +57,3 @@ _DEFINE_COMP_OP(greater_equals, >=);
 } // namespace functional
 
 #endif
-

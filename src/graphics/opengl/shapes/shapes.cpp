@@ -1,12 +1,7 @@
-/*
-File: shapes.cpp
-Author: Brian DuSell
-*/
-
 #include <cmath>
-#include "shapes.h"
-//#include "drawing.h"
-#include "math.h"
+#include "graphics/shapes/shapes.h"
+#include "graphics/opengl/drawing.h"
+#include "math/util.h"
 
 using namespace graphics::hw01;
 

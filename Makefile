@@ -34,6 +34,12 @@ test: $(TESTBIN)
 %.o: %.cpp
 	$(COMPILE)
 
+doc: $(SRC) $(HDR)
+	LD_LIBRARY_PATH=/usr/lib/llvm-3.4/lib cldoc generate -- --report --merge docs --output doc $^
+
+viewdocs:
+	cldoc serve doc
+
 clean:
 	$(RM) $(OBJ) $(TESTOBJ) $(TESTBIN)
 

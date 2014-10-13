@@ -110,7 +110,7 @@ for FILENAME in "${TEST_NAMES[@]}"; do
             mark 'compilation-failed' "test/$NAME.cpp"
             red "error: compilation of $NAME.cpp failed"
         fi
-    elif ! $IGNORE_MISSING
+    elif ! $IGNORE_MISSING; then
         mark 'missing'
         red "error: no test for $NAME"
     fi

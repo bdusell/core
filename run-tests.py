@@ -2,6 +2,8 @@
 
 import sys, os, os.path, subprocess, re
 
+DEFAULT_PATH = 'src'
+
 usage = '''\
 %s [options] [test-names ...]
 
@@ -14,6 +16,7 @@ usage = '''\
     --only-failures        Only display failures.
     --first-failure        Stop after the first failure.
     --ignore-missing       Ignore missing tests.
+    --long                 Show the text for each assertion.
     --                     End of options.
 
     test-names:
@@ -74,10 +77,13 @@ def base_name_to_test_executable_name(name):
     return 'test/%s.test' % (name)
 
 def compile_test(filename, suppress):
-    return run_command(['make', filename]) == 0
+    return run_command(['make', filename], suppress) == 0
 
-def run_test(filename, suppress):
-    return run_command([filename], suppress) == 0
+def run_test(filename, suppress, long_output):
+    command = [filename]
+    if not long_output:
+        command.append('--dots')
+    return run_command(command, suppress) == 0
 
 def main():
 
@@ -88,6 +94,7 @@ def main():
     only_failures = False
     first_failure = False
     ignore_missing = False
+    long_output = False
     test_names = []
     while args:
         arg = args.pop()
@@ -104,13 +111,15 @@ def main():
             first_failure = True
         elif arg == '--ignore-missing':
             ignore_missing = True
+        elif arg == '--long':
+            long_output = True
         elif arg == '--':
             break
         else:
             test_names.append(arg)
     test_names.extend(reversed(args))
 
-    test_file_names = find_files(test_names or ['src'], 'h')
+    test_file_names = find_files(test_names or [DEFAULT_PATH], 'h')
 
     def log_message(func, msg):
         print func(msg)
@@ -126,7 +135,7 @@ def main():
         if os.path.isfile(test_source_name):
             total += 1
             if compile_test(test_executable_name, no_make_output):
-                if run_test(test_executable_name, no_test_output):
+                if run_test(test_executable_name, no_test_output, long_output):
                     if not only_failures:
                         log_message(green, 'test %s passed' % base_name)
                     passes += 1

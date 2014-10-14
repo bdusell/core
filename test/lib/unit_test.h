@@ -52,13 +52,13 @@ class unit_test {
 public:
 
 	/* The terminal color used for printing normal output. */
-	ansi::color::color_code normal;
+	terminal::color::color_code normal;
 
 	/* The terminal color used for indicating success. */
-	ansi::color::color_code success;
+	terminal::color::color_code success;
 
 	/* The terminal color used for indicating failure. */
-	ansi::color::color_code failure;
+	terminal::color::color_code failure;
 
 	/* Whether colored terminal output is enabled. */
 	bool color_enabled;
@@ -71,9 +71,9 @@ public:
 
 	/* Default constructor. */
 	unit_test() :
-		normal(ansi::color::cyan),
-		success(ansi::color::green),
-		failure(ansi::color::red),
+		normal(terminal::color::cyan),
+		success(terminal::color::green),
+		failure(terminal::color::red),
 		color_enabled(true),
 		quiet_mode(false),
 		dot_mode(false),
@@ -114,7 +114,7 @@ public:
 			make_color(normal);
 			if(dot_mode) std::cout << title;
 			else std::cout << "==== " << title << " ====";
-			make_color(ansi::color::clear);
+			make_color(terminal::color::clear);
 			std::cout << std::endl;
 			if(!dot_mode) std::cout << std::endl;
 		}
@@ -134,7 +134,7 @@ public:
 						<< " failure" << (failures() == 1 ? "" : "s")
 						<< ')' << std::endl;
 				}
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				for(std::vector<failure_location>::const_iterator
 					i = _deferred_messages.begin(), n = _deferred_messages.end(); i != n; ++i)
 				{
@@ -142,24 +142,24 @@ public:
 					std::cout << "failed at ";
 					make_color(normal);
 					std::cout << i->filename << ':' << i->line;
-					make_color(ansi::color::clear);
+					make_color(terminal::color::clear);
 					std::cout << std::endl;
 				}
 				std::cout << std::endl;
 			} else {
 				std::cout << "==== TEST COMPLETE ====";
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				std::cout
 					<< std::endl
 					<< std::endl
 					<< "Total tests: " << _total << std::endl;
 				if(failures()) make_color(failure);
 				std::cout << "Failures:    " << failures();
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				std::cout << std::endl;
 				if(successes()) make_color(success);
 				std::cout << "Successes:   " << successes();
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				std::cout
 					<< std::endl
 					<< std::endl;
@@ -173,7 +173,7 @@ public:
 					std::cout << "FAILURE";
 				}
 
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				std::cout << std::endl
 					<< std::endl;
 			}
@@ -319,7 +319,7 @@ private:
 		if(show_assertions()) {
 			make_color(normal);
 			std::cout << "== TEST #" << _total << ": " << name << " ==";
-			make_color(ansi::color::clear);
+			make_color(terminal::color::clear);
 			std::cout << std::endl;
 		}
 	}
@@ -329,11 +329,11 @@ private:
 			make_color(success);
 			if(dot_mode) {
 				std::cout << '.';
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				std::cout.flush();
 			} else {
 				std::cout << "PASSED";
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				std::cout << std::endl
 					<< std::endl;
 			}
@@ -346,7 +346,7 @@ private:
 			make_color(failure);
 			if(dot_mode) {
 				std::cout << 'x';
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				std::cout.flush();
 				_deferred_messages.push_back(failure_location());
 				failure_location &loc = _deferred_messages.back();
@@ -354,7 +354,7 @@ private:
 				loc.line = line;
 			} else {
 				std::cout << "FAILED in " << filename << " at line " << line;
-				make_color(ansi::color::clear);
+				make_color(terminal::color::clear);
 				std::cout << std::endl
 					<< std::endl;
 			}

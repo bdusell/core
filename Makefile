@@ -45,5 +45,5 @@ clean:
 	$(RM) $(OBJ) $(TESTOBJ) $(TESTBIN)
 
 .make/dependencies: $(ALLSRC) $(HDR)
-	$(MKTARGETDIR) && { $(foreach src,$(ALLSRC),$(CXX) $(INC) -MT $(src:.cpp=.o) -MM $(src);) } > $@
+	$(MKTARGETDIR) && { $(foreach src,$(ALLSRC),$(CXX) $(INC) -MT $(src:.cpp=.o) -MM $(src);) true; } > $@
 

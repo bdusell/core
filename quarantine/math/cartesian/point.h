@@ -1,7 +1,8 @@
-#ifndef MATH_CARTESIAN_POINT_H
-#define MATH_CARTESIAN_POINT_H
+#ifndef _MATH_CARTESIAN_POINT_H_
+#define _MATH_CARTESIAN_POINT_H_
 
 #include "math/cartesian/tuple.h"
+#include "functional/operators.h"
 
 namespace graphics {
 namespace cartesian {
@@ -35,19 +36,17 @@ public:
 	/* Vector addition. */
 	template <typename U>
 	inline point<T, N> operator+(const vector<U, N> &v) const {
-		return this->template arithmetic_op< point<T, N> >(v, add());
+		return this->template arithmetic_op< point<T, N> >(v, functional::operators::add());
 	}
 
 	/* Point subtraction. */
 	template <typename U>
 	inline vector<T, N> operator-(const point<U, N> &p) const {
-		return this->template arithmetic_op< vector<T, N> >(p, subtract());
+		return this->template arithmetic_op< vector<T, N> >(p, functional::operators::subtract());
 	}
-
 };
 
 } // namespace cartesian
 } // namespace graphics
 
 #endif
-

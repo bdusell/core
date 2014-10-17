@@ -1,7 +1,9 @@
 #include "meta/is_real.h"
 #include "unit_test.h"
+
 struct MyClass {};
-UNIT_TEST(is_real) {
+
+UNIT_TEST(meta_is_real) {
 #define _TEST_TRUE( T ) \
 	UNIT_TEST_TRUE(meta::is_real<T>::value, #T " is a real-valued type");
 #define _TEST_FALSE( T ) \

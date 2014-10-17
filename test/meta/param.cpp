@@ -1,9 +1,11 @@
 #include "meta/param.h"
 #include "unit_test.h"
 #include "meta/same_type.h"
+
 struct MySmallClass { char c; };
 struct MyLargeClass { int *a, *b; };
-UNIT_TEST(param) {
+
+UNIT_TEST(meta_param) {
 #define _SAME_TYPE(T, U, MSG) \
 	UNIT_TEST_TRUE((meta::same_type<meta::param<T>::type, U>::value), MSG);
 	_SAME_TYPE(char, char, "small primitive maps to self")

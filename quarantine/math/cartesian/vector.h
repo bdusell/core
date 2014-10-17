@@ -1,7 +1,8 @@
-#ifndef MATH_CARTESIAN_VECTOR_H
-#define MATH_CARTESIAN_VECTOR_H
+#ifndef _MATH_CARTESIAN_VECTOR_H_
+#define _MATH_CARTESIAN_VECTOR_H_
 
 #include "math/cartesian/tuple.h"
+#include "functional/operators.h"
 
 namespace math {
 namespace cartesian {
@@ -34,35 +35,33 @@ public:
 	/* Vector addition. */
 	template <typename U>
 	inline vector<T, N> operator+(const vector<U, N> &v) const {
-		return this->template arithmetic_op< vector<T, N> >(v, add());
+		return this->template arithmetic_op< vector<T, N> >(v, functional::operators::add());
 	}
 
 	template <typename U>
 	inline point<T, N> operator+(const point<U, N> &p) const {
-		return this->template arithmetic_op< point<T, N> >(p, add());
+		return this->template arithmetic_op< point<T, N> >(p, functional::operators::add());
 	}
 	
 	/* Vector subtraction. */
 	template <typename U>
 	inline vector<T, N> operator-(const vector<U, N> &v) const {
-		return this->template arithmetic_op< vector<T, N> >(v, subtract());
+		return this->template arithmetic_op< vector<T, N> >(v, functional::operators::subtract());
 	}
-	
+
 	/* Vector scaling. */
 	template <typename U>
 	inline vector<T, N> operator*(U c) const {
-		return this->template scale_op< vector<T, N> >(c, multiply());
-	}
-	
-	template <typename U>
-	inline vector<T, N> operator/(U c) const {
-		return this->template scale_op< vector<T, N> >(c, divide());
+		return this->template scale_op< vector<T, N> >(c, functional::operators::multiply());
 	}
 
+	template <typename U>
+	inline vector<T, N> operator/(U c) const {
+		return this->template scale_op< vector<T, N> >(c, functional::operators::divide());
+	}
 };
 
 } // namespace cartesian
 } // namespace math
 
 #endif
-

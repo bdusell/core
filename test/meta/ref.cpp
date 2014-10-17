@@ -1,10 +1,12 @@
 #include "meta/ref.h"
 #include "unit_test.h"
 #include "meta/same_type.h"
+
 struct MyClass {
 	int *a, *b;
 };
-UNIT_TEST(ref) {
+
+UNIT_TEST(meta_ref) {
 #define _TYPE_TEST( T , U , MSG ) \
 	UNIT_TEST_TRUE((meta::same_type<meta::ref< T >::type, U >::value), MSG);
 	_TYPE_TEST(char, char &, "small primitive maps to reference");

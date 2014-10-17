@@ -1,12 +1,15 @@
 #include "meta/cref.h"
 #include "unit_test.h"
 #include "meta/same_type.h"
+
 class MySmallClass {
 	char value;
 };
+
 class MyLargeClass {
 	int *a, *b;
 };
+
 UNIT_TEST(cref) {
 	UNIT_TEST_TRUE((meta::same_type<meta::cref<int>::type, int>::value), "small primitive maps to itself");
 	UNIT_TEST_TRUE((meta::same_type<meta::cref<long double>::type, const long double &>::value), "large primitive maps to const reference");

@@ -54,19 +54,19 @@ public:
 	/* Assignment operator. */
 	template <typename U>
 	inline array_tuple<T, N> &operator=(const U &copy) {
-		return assign_op(copy, functional::assign());
+		return assign_op(copy, functional::operators::assign());
 	}
 
 	/* Equality operator. */
 	template <typename U>
 	inline bool operator==(const U &that) const {
-		return all_op(that, functional::equals());
+		return all_op(that, functional::operators::equals());
 	}
 
 	/* Inequality operator. */
 	template <typename U>
 	inline bool operator!=(const U &that) const {
-		return any_op(that, functional::not_equals());
+		return any_op(that, functional::operators::not_equals());
 	}
 
 	/* Access the underlying array. */

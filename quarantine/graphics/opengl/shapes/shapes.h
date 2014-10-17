@@ -5,6 +5,7 @@
 #include "graphics/opengl/drawing.h"
 #include "math/util.h"
 #include "math/cartesian/point.h"
+#include "math/cartesian/rectangle.h"
 
 namespace graphics {
 namespace shapes {
@@ -78,34 +79,8 @@ class slant_hint;
 template <slant_style BottomStyle, slant_style TopStyle>
 void draw_slant(const slant_hint<BottomStyle, TopStyle> &hint);
 
-template <typename T>
-class rect;
-
-template <typename T>
-class rect {
-
-public:
-
-	typedef point<T, 2> point_type;
-
-	inline rect(T x1, T y1, T x2, T y2);
-	inline rect(const point_type &p1, const point_type &p2);
-
-	inline void set(T x1, T y1, T x2, T y2);
-
-	template <typename U>
-	inline void clamp(point<U, 2> &p) const;
-
-	inline point_type center() const;
-	inline T xrange() const;
-	inline T yrange() const;
-
-	point_type p1, p2;
-
-};
-
-typedef rect<Float> rectf;
-typedef rect<Pixel> rectpx;
+typedef math::cartesian::rectangle<Float> rectf;
+typedef math::cartesian::rectangle<Pixel> rectpx;
 
 ///* Implementations *///
 
@@ -196,42 +171,6 @@ public:
 
 template <>
 void draw_slant<vert_outside, vert>(const slant_hint<vert_outside, vert> &hint);
-
-template <typename T>
-rect<T>::rect(T x1, T y1, T x2, T y2) : p1(x1, y1), p2(x2, y2) {}
-
-template <typename T>
-rect<T>::rect(const point_type &p1_, const point_type &p2_) : p1(p1_), p2(p2_) {}
-
-template <typename T>
-void rect<T>::set(T x1, T y1, T x2, T y2) {
-	p1.set(x1, y1);
-	p2.set(x2, y2);
-}
-
-template <typename T>	
-typename rect<T>::point_type rect<T>::center() const {
-	return p1 + (p2 - p1) / 2;
-}
-
-template <typename T>
-template <typename U>
-void rect<T>::clamp(point<U, 2> &p) const {
-	p.set(
-		graphics::hw01::clamp<T>(p.x(), p1.x(), p2.x()),
-		graphics::hw01::clamp<T>(p.y(), p1.y(), p2.y())
-	);
-}
-
-template <typename T>
-T rect<T>::xrange() const {
-	return p2.x() - p1.x();
-}
-
-template <typename T>
-T rect<T>::yrange() const {
-	return p2.y() - p1.y();
-}
 
 } // namespace shapes
 } // namespace graphics

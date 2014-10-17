@@ -1,33 +1,25 @@
-/*
-File: cartesian.h
-Author: Brian DuSell
+#ifndef _MATH_tuple_H_
+#define _MATH_tuple_H_
 
-An extension of the array tuple type adapted for use in a traditional
-Cartesian xyz coordinate system.
-*/
-
-#ifndef MATH_CARTESIAN_TUPLE_H
-#define MATH_CARTESIAN_TUPLE_H
-
-//#include "meta/array_tuple.h"
+#include "data/array_tuple.h"
 
 namespace math {
 namespace cartesian {
 
 template <typename T, int N>
-class cartesian_tuple;
+class tuple;
 
 template <typename T, int N>
-class cartesian_tuple : public meta::array_tuple<T, N> {
+class tuple : public data::array_tuple<T, N> {
 
-	typedef array_tuple<T, N> super;
+	typedef data::array_tuple<T, N> super;
 
 public:
 
-	inline cartesian_tuple() {}
-	inline cartesian_tuple(T x, T y) : super(x, y) {}
-	inline cartesian_tuple(T x, T y, T z) : super(x, y, z) {}
-	inline cartesian_tuple(T x, T y, T z, T w) : super(x, y, z, w) {}
+	inline tuple() {}
+	inline tuple(T x, T y) : super(x, y) {}
+	inline tuple(T x, T y, T z) : super(x, y, z) {}
+	inline tuple(T x, T y, T z, T w) : super(x, y, z, w) {}
 
 	inline T &x() { return this->template get<0>(); }
 	inline T &y() { return this->template get<1>(); }
@@ -40,7 +32,7 @@ public:
 	inline T w() const { return this->template get<3>(); }
 
 	template <typename U>
-	inline cartesian_tuple<T, N> &operator=(const cartesian_tuple<U, N> &that) {
+	inline tuple<T, N> &operator=(const tuple<U, N> &that) {
 		super::operator=(this, that);
 		return *this;
 	}
@@ -51,4 +43,3 @@ public:
 } // namespace math
 
 #endif
-

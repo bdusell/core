@@ -1,7 +1,7 @@
-#ifndef MATH_CARTESIAN_SIZE_H
-#define MATH_CARTESIAN_SIZE_H
+#ifndef _MATH_CARTESIAN_SIZE_H_
+#define _MATH_CARTESIAN_SIZE_H_
 
-#include "meta/array_tuple.h"
+#include "data/array_tuple.h"
 
 namespace math {
 namespace cartesian {
@@ -10,10 +10,10 @@ template <typename T, int N>
 class size;
 
 /* A two-dimensional size. */
-template <typename T, int N, typename Tuple = meta::array_tuple<T, N> >
-class size : public Tuple {
+template <typename T, int N>
+class size : public data::array_tuple<T, N> {
 
-	typedef Tuple super;
+	typedef data::array_tuple<T, N> super;
 
 public:
 
@@ -33,11 +33,9 @@ public:
 		super::operator=(this, that);
 		return *this;
 	}
-
 };
 
 } // namespace cartesian
 } // namespace math
 
 #endif
-

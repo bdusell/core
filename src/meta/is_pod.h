@@ -1,5 +1,5 @@
-#ifndef META_IS_POD_H
-#define META_IS_POD_H
+#ifndef _META_IS_POD_H_
+#define _META_IS_POD_H_
 
 #include "meta/is_primitive.h"
 #include "meta/is_pointer.h"
@@ -13,6 +13,6 @@ struct is_pod {
 	static const bool value = is_primitive<T>::value || is_pointer<T>::value;
 };
 
-} // namespace meta
+}
 
 #endif

@@ -1,11 +1,11 @@
-#ifndef META_MINSIZE_H
-#define META_MINSIZE_H
+#ifndef _META_MINSIZE_H_
+#define _META_MINSIZE_H_
 
 #include "meta/if.h"
 
 namespace meta {
 
-/* A meta-type which produces `const T &` if `T` is larger than a reference
+/* A metafunction which produces `const T &` if `T` is larger than a reference
  * to itself, and otherwise `T`. */
 template <typename T>
 struct minsize;
@@ -26,7 +26,6 @@ struct minsize<T &> {
 	typedef T &type;
 };
 
-} // namespace meta
+}
 
 #endif
-

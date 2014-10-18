@@ -1,13 +1,12 @@
-#ifndef META_IS_PRIMITIVE_H
-#define META_IS_PRIMITIVE_H
+#ifndef _META_IS_PRIMITIVE_H_
+#define _META_IS_PRIMITIVE_H_
 
 #include "meta/true.h"
 #include "meta/false.h"
 
 namespace meta {
 
-/* is_primitive<T>
-Test if T is a primitive C++ type. */
+/* Test if `T` is a primitive C++ type. */
 template <typename T>
 struct is_primitive : public false_ {};
 
@@ -31,7 +30,6 @@ _DEFINE_PRIMITIVE(long double)
 
 #undef _DEFINE_PRIMITIVE
 
-} // namespace meta
+}
 
 #endif
-

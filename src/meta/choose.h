@@ -1,8 +1,9 @@
-#ifndef META_CHOOSE_H
-#define META_CHOOSE_H
+#ifndef _META_CHOOSE_H_
+#define _META_CHOOSE_H_
 
 namespace meta {
 
+/* Choose the `I`th type in a list of types (metafunction). */
 template <
 	unsigned int I,
 	typename T0 = void,
@@ -30,7 +31,6 @@ _CHOICE(3)
 
 #undef _CHOICE
 
-} // namespace meta
+}
 
 #endif
-

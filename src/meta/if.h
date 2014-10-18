@@ -1,9 +1,9 @@
-#ifndef META_IF_H
-#define META_IF_H
+#ifndef _META_IF_H_
+#define _META_IF_H_
 
 namespace meta {
 
-/* A meta-type which produces `A` if `Cond` is true and `B` otherwise. */
+/* A metafunction which produces `A` if `Cond` is true and `B` otherwise. */
 template <bool Cond, typename A, typename B>
 struct if_;
 
@@ -17,7 +17,6 @@ struct if_<false, A, B> {
 	typedef B type;
 };
 
-} // namespace meta
+}
 
 #endif
-

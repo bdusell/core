@@ -11,12 +11,15 @@ usage = '''\
 
     options:
     --help                 Display this help message.
-    --no-test-output       Suppress output from individual unit tests.
-    --no-make-output       Suppress compilation output.
-    --only-failures        Only display failures.
-    --first-failure        Stop after the first failure.
     --ignore-missing       Ignore missing tests.
+    --first-failure        Stop after the first failure.
+    --only-failures        Only display failures.
+    --no-make-output       Suppress compilation output.
+    --no-test-output       Suppress output from individual unit tests.
+    --no-test-results      Show only the assertions for each test and no
+                           result summary.
     --long                 Show the text for each assertion.
+    --brief                Equivalent to --no-make-output --no-test-results.
     --                     End of options.
 
     test-names:
@@ -81,12 +84,14 @@ def base_name_to_test_executable_name(name):
 def compile_test(filename, suppress):
     return run_command(['make', filename], suppress) == 0
 
-def run_test(filename, suppress, long_output):
+def run_test(filename, suppress, long_output, no_results):
     command = [filename]
     if not long_output:
         command.append('--dots')
     if suppress:
         command.append('--silent')
+    if no_results:
+        command.append('--no-result')
     return subprocess.call(command) == 0
 
 def main():
@@ -99,6 +104,7 @@ def main():
     first_failure = False
     ignore_missing = False
     long_output = False
+    no_test_results = False
     test_names = []
     while args:
         arg = args.pop()
@@ -107,6 +113,8 @@ def main():
             sys.exit()
         elif arg == '--no-test-output':
             no_test_output = True
+        elif arg == '--no-test-results':
+            no_test_results = True
         elif arg == '--no-make-output':
             no_make_output = True
         elif arg == '--only-failures':
@@ -117,6 +125,8 @@ def main():
             ignore_missing = True
         elif arg == '--long':
             long_output = True
+        elif arg == '--brief':
+            no_make_output = no_test_results = True
         elif arg == '--':
             break
         else:
@@ -139,12 +149,14 @@ def main():
         if os.path.isfile(test_source_name):
             total += 1
             if compile_test(test_executable_name, no_make_output):
-                if run_test(test_executable_name, no_test_output, long_output):
+                if run_test(test_executable_name, no_test_output, long_output, no_test_results):
                     if not only_failures:
-                        log_message(green, 'test %s passed' % base_name)
+                        if not no_test_results:
+                            log_message(green, 'test %s passed' % base_name)
                     passes += 1
                 else:
-                    log_message(red, 'test %s failed' % base_name)
+                    if not no_test_results:
+                        log_message(red, 'test %s failed' % base_name)
                 if not no_test_output:
                     log_message(normal, '')
             else:
@@ -154,6 +166,10 @@ def main():
             total += 1
         if first_failure and passes < total:
             break
+
+    if total == 0:
+        sys.stderr.write(red('error: no tests run') + '\n')
+        sys.exit(1)
 
     failures = total - passes
 

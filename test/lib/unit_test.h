@@ -69,6 +69,9 @@ public:
 	/* Whether assertions are abbreviated with dots. */
 	bool dot_mode;
 
+	/* Whether the overall result of the test is shown. */
+	bool show_result;
+
 	/* Default constructor. */
 	unit_test() :
 		normal(terminal::color::cyan),
@@ -77,6 +80,7 @@ public:
 		color_enabled(true),
 		quiet_mode(false),
 		dot_mode(false),
+		show_result(true),
 		_successes(0),
 		_total(0)
 	{
@@ -103,6 +107,9 @@ public:
 			else if(strcmp(*str, "-d") == 0 || strcmp(*str, "--dots") == 0) {
 				dot_mode = true;
 			}
+			else if(strcmp(*str, "-R") == 0 || strcmp(*str, "--no-result") == 0) {
+				show_result = false;
+			}
 			else {
 				print_usage(std::cerr, argv[0]);
 				return 1;
@@ -121,7 +128,7 @@ public:
 
 		run_tests();
 
-		if(!quiet_mode) {
+		if(show_result && !quiet_mode) {
 			make_color(normal);
 			if(dot_mode) {
 				std::cout << std::endl;
@@ -174,7 +181,8 @@ public:
 				}
 
 				make_color(terminal::color::clear);
-				std::cout << std::endl
+				std::cout
+					<< std::endl
 					<< std::endl;
 			}
 		}
@@ -307,10 +315,11 @@ private:
 		out
 			<< progname << " [options]" << std::endl
 			<< "    options:" << std::endl
-			<< "        -h --help      Show this help message." << std::endl
-			<< "        -n --no-color  Do not color the terminal output." << std::endl
-			<< "        -s --silent    Do not print any output when running the test." << std::endl
-			<< "        -d --dots      Abbreviate assertions as dots." << std::endl
+			<< "        -h --help        Show this help message." << std::endl
+			<< "        -n --no-color    Do not color the terminal output." << std::endl
+			<< "        -s --silent      Do not print any output when running the test." << std::endl
+			<< "        -d --dots        Abbreviate assertions as dots." << std::endl
+			<< "        -R --no--result  Do not display the test result at the end." << std::endl
 			;
 	}
 

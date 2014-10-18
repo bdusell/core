@@ -36,7 +36,7 @@ test: $(TESTBIN)
 	$(COMPILE)
 
 doc: $(SRC) $(HDR)
-	LD_LIBRARY_PATH=$(LIBCLANG_PATH) cldoc generate -- --report --merge docs --output doc $^
+	LD_LIBRARY_PATH=$(LIBCLANG_PATH) cldoc generate $(INC) -- --report --merge docs --output doc $^
 
 viewdocs:
 	cldoc serve doc

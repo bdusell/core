@@ -20,8 +20,10 @@ usage = '''\
     --                     End of options.
 
     test-names:
-    This may be a list of specific tests to run. These may be the names of
-    header files, source files, or extension-less test names.
+        A list of specific header/source files whose corresponding tests are to
+        be run. Header/source file names map to test file names by changing the
+        top-level directory from src/ to test/ and changing the file extension
+        to .cpp.
 ''' % (sys.argv[0])
 
 def run_command(words, suppress=False):
@@ -83,7 +85,9 @@ def run_test(filename, suppress, long_output):
     command = [filename]
     if not long_output:
         command.append('--dots')
-    return run_command(command, suppress) == 0
+    if suppress:
+        command.append('--silent')
+    return subprocess.call(command) == 0
 
 def main():
 
@@ -141,6 +145,8 @@ def main():
                     passes += 1
                 else:
                     log_message(red, 'test %s failed' % base_name)
+                if not no_test_output:
+                    log_message(normal, '')
             else:
                 log_message(red, 'compilation of %s failed' % test_source_name)
         elif not ignore_missing:
@@ -152,9 +158,7 @@ def main():
     failures = total - passes
 
     if not (first_failure and failures):
-        log_message(normal, '')
         log_message(cyan,   '==== TEST SUITE COMPLETE ====')
-        log_message(normal, '')
         log_message(normal, 'Total tests: %d' % total)
         log_message(red if failures else normal,
                             'Failures:    %d' % failures)

@@ -1,5 +1,5 @@
-#ifndef MATH_TRIG_H
-#define MATH_TRIG_H
+#ifndef _MATH_TRIG_H_
+#define _MATH_TRIG_H_
 
 #include <cmath>
 
@@ -30,7 +30,8 @@ _WRAPPER(acos)
 _WRAPPER(atan)
 
 /* Arc tangent, taking two arguments representing a fraction and using their
-signs to determine the correct quadrant of the result. */
+signs to determine the correct quadrant of the result. It is an error to call
+this with both arguments equal to 0. */
 template <typename T>
 T atan(const T &a, const T &b) {
 	return ::atan2(a, b);
@@ -38,5 +39,6 @@ T atan(const T &a, const T &b) {
 
 #undef _WRAPPER
 
-#endif
+}
 
+#endif

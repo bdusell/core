@@ -1,6 +1,7 @@
 #include "math/util.h"
 #include "unit_test.h"
 #include <iostream>
+
 UNIT_TEST(util) {
 
 #define _VALUE 5.5
@@ -22,7 +23,10 @@ UNIT_TEST(util) {
 #define _ARGS_STR_3 _ARGS_STR_2 ", " _ARGS_STR_1
 
 #define _TEST_TYPE(FUNC, TYPE, N) \
-	std::cout << (#FUNC "<" #TYPE ">(" _ARGS_STR_ ## N ") = ") << math::FUNC(_ARGS_ ## N(TYPE)) << std::endl;
+	(void) math::FUNC(_ARGS_ ## N(TYPE)); \
+	UNIT_TEST_COMPILES( \
+		#FUNC "<" #TYPE ">(" _ARGS_STR_ ## N ")" \
+	);
 
 #define _TEST_FUNC(FUNC, N) \
 	_TEST_TYPE(FUNC, int, N) \

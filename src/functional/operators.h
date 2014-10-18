@@ -76,7 +76,7 @@ _DEFINE_COMP_OP(greater_equals, >=);
 #undef _DEFINE_ARITHMETIC_OP
 #undef _DEFINE_ASSIGN_OP
 
-} // namespace operators
-} // namespace functional
+}
+}
 
 #endif

@@ -11,15 +11,13 @@ usage = '''\
 
     options:
     --help                 Display this help message.
+    -l --long              Show the text for each assertion.
     --ignore-missing       Ignore missing tests.
     --first-failure        Stop after the first failure.
     --only-failures        Only display failures.
-    --no-make-output       Suppress compilation output.
+    --show-make-output     Show Makefile and compiler output.
     --no-test-output       Suppress output from individual unit tests.
-    --no-test-results      Show only the assertions for each test and no
-                           result summary.
-    --long                 Show the text for each assertion.
-    --brief                Equivalent to --no-make-output --no-test-results.
+    --show-exit-status     Show the exit status for each unit test.
     --                     End of options.
 
     test-names:
@@ -99,12 +97,12 @@ def main():
     args = sys.argv[:0:-1]
 
     no_test_output = False
-    no_make_output = False
+    no_make_output = True
     only_failures = False
     first_failure = False
     ignore_missing = False
     long_output = False
-    no_test_results = False
+    no_test_results = True
     test_names = []
     while args:
         arg = args.pop()
@@ -113,20 +111,18 @@ def main():
             sys.exit()
         elif arg == '--no-test-output':
             no_test_output = True
-        elif arg == '--no-test-results':
-            no_test_results = True
-        elif arg == '--no-make-output':
-            no_make_output = True
+        elif arg == '--show-exit-status':
+            no_test_results = False
+        elif arg == '--show-make-output':
+            no_make_output = False
         elif arg == '--only-failures':
             only_failures = True
         elif arg == '--first-failure':
             first_failure = True
         elif arg == '--ignore-missing':
             ignore_missing = True
-        elif arg == '--long':
+        elif arg == '-l' or arg == '--long':
             long_output = True
-        elif arg == '--brief':
-            no_make_output = no_test_results = True
         elif arg == '--':
             break
         else:

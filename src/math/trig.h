@@ -6,10 +6,7 @@
 namespace math {
 
 #define _WRAPPER( NAME ) \
-template <typename T> \
-T NAME (const T &x) { \
-	return  :: NAME (x); \
-}
+using ::std::NAME;
 
 /* Sine. */
 _WRAPPER(sin)
@@ -30,8 +27,9 @@ _WRAPPER(acos)
 _WRAPPER(atan)
 
 /* Arc tangent, taking two arguments representing a fraction and using their
-signs to determine the correct quadrant of the result. It is an error to call
-this with both arguments equal to 0. */
+ * signs to determine the correct quadrant of the result. It is an error to
+ * call this with both arguments equal to 0. The result is in the interval
+ * [-pi, pi]. */
 template <typename T>
 T atan(const T &a, const T &b) {
 	return ::atan2(a, b);

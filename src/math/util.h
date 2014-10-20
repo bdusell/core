@@ -1,5 +1,5 @@
-#ifndef MATH_UTIL_H
-#define MATH_UTIL_H
+#ifndef _MATH_UTIL_H_
+#define _MATH_UTIL_H_
 
 #include <cstdlib>
 #include <cmath>
@@ -9,7 +9,10 @@ namespace math {
 
 ///* Constants *///
 
+/* Pi. */
 static const double pi = M_PI;
+
+/* e (Euler's number). */
 static const double e = M_E;
 
 ///* Functions *///
@@ -165,7 +168,6 @@ bool real_equal(const T &a, const T &b, const T &tolerance = 0.001) {
 #undef _PARAM_LIST_2
 #undef _DEFINE_REAL_AND_INT
 
-} // namespace math
+}
 
 #endif
-

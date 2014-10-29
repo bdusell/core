@@ -38,7 +38,7 @@ test: $(TESTBIN)
 doc: $(SRC) $(HDR)
 	LD_LIBRARY_PATH=$(LIBCLANG_PATH) cldoc generate $(INC) -- --report --merge docs --output doc $^
 
-viewdocs:
+showdoc: doc
 	cldoc serve doc
 
 clean:
@@ -46,4 +46,6 @@ clean:
 
 .make/dependencies: $(ALLSRC) $(HDR)
 	$(MKTARGETDIR) && { $(foreach src,$(ALLSRC),$(CXX) $(INC) -MT $(src:.cpp=.o) -MM $(src);) true; } > $@
+
+.PHONY: all test doc showdoc clean
 

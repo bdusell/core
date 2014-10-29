@@ -1,45 +1,41 @@
-/*
-File: random.h
-Author: Brian DuSell
-
-Random value generation utilities.
-*/
-
-#ifndef MATH_RANDOM_H
-#define MATH_RANDOM_H
+#ifndef _MATH_RANDOM_H_
+#define _MATH_RANDOM_H_
 
 #include <cstdlib>
 #include <ctime>
 
 namespace math {
 
-///* Functions *///
-
+/* Seed the PRG with the current timestamp. */
 inline void srand();
 
+/* Generate a random real number in the range [`low`, `high`]. */
 template <typename T>
-T rand_float(T low, T high);
+T rand_real(T low, T high);
 
+/* Generate a random integer in the range [`low`, `high`]. */
 template <typename T>
 T rand_int(T low, T high);
 
+/* Generate a random integer in the range [0, `high`). */
 template <typename T>
 inline T rand_int_exclusive(T high);
 
+/* Generate a random integer in the range [`low`, `high`). */
 template <typename T>
 T rand_int_exclusive(T low, T high);
 
+/* Generate a random number in the range [`low`, `high`] (overloaded
+ * appropriately for real vs. integral types). */
 template <typename T>
 inline T rand(T low, T high);
 
-///* Implementations *///
-
 void srand() {
-	::srand(time(NULL));
+	::srand(::time(NULL));
 }
 
 template <typename T>
-T rand_float(T low, T high) {
+T rand_real(T low, T high) {
 	return (T(::rand()) / T(RAND_MAX)) * (high - low) + low;
 }
 
@@ -60,7 +56,7 @@ T rand_int_exclusive(T low, T high) {
 
 template <typename T>
 inline T rand(T low, T high) {
-	return rand_float(low, high);
+	return rand_real(low, high);
 }
 
 template <>
@@ -83,7 +79,6 @@ inline long rand<long>(long low, long high) {
 	return rand_int(low, high);
 }
 
-} // namespace math
+}
 
 #endif
-
